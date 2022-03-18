@@ -20,6 +20,7 @@ public:
     qreal wmc, hmc, scalemc;
     qreal wkld, hkld, scalekld;
     qreal wckl, hckl, scaleckl;
+    qreal wfar, hfar, scalefar;
 
 private slots:
     void on_pushButton_clicked();

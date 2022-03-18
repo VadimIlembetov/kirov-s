@@ -28,7 +28,12 @@ MainWindow::MainWindow(QWidget *parent)
     scaleckl = 1;
     wckl = wckl  * scaleckl;
     hckl = hckl * scaleckl;
-
+    //параметры фильтра
+    wfar = 200;
+    hfar = 200;
+    scalefar = 1;
+    wfar = wfar  * scalefar;
+    hfar = hfar * scalefar;
 
     //инициализация объекта таймера
     timer_cycle = new QTimer();
@@ -53,7 +58,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     QBrush brush;
-    qreal x, y;
+    qreal x, y, xd;
 
     //заливка
     brush.setStyle(Qt::SolidPattern);
@@ -77,10 +82,11 @@ void MainWindow::paintEvent(QPaintEvent *event)
     painter.drawPolygon(pointsmc, 6);
 
     //классификатор
-    x = xdev + 250;
+    xd = 250;
+    x = xdev + xd;
     y = ydev;
     painter.drawRect(x, y, wkld + 2*wkld*0.1, hkld*0.2);
-    x = xdev + wkld*0.1 + 250;
+    x = xdev + wkld*0.1 + xd;
     y = ydev + hkld*0.2;
     static const QPointF pointskld[10] = {
         QPointF(x, y + hkld*0.25),
@@ -96,10 +102,11 @@ void MainWindow::paintEvent(QPaintEvent *event)
     };
     painter.drawPolygon(pointskld, 10);
     //циклон
-    x = xdev + 450;
+    xd = 450;
+    x = xdev + xd;
     y = ydev;
     painter.drawRect(x, y, wckl + 2*wckl*0.1, hckl*0.2);
-    x = xdev + wckl*0.1 + 450;
+    x = xdev + wckl*0.1 + xd;
     y = ydev + hckl*0.2;
     static const QPointF pointsckl[14] = {
         QPointF(x, y + hckl*0.25),
@@ -118,6 +125,23 @@ void MainWindow::paintEvent(QPaintEvent *event)
         QPointF(x, y + hckl*0.35)
     };
     painter.drawPolygon(pointsckl, 14);
+    //циклон
+    xd = 650;
+    x = xdev + xd;
+    y = ydev;
+    painter.drawRect(x, y, wfar + 2*wfar*0.1, hfar*0.2);
+    x = xdev + wfar*0.1 + xd;
+    y = ydev + hfar*0.2;
+    static const QPointF pointsfar[6] = {
+        QPointF(x, y),
+        QPointF(x + wfar, y),
+        QPointF(x + wfar, y + hfar*0.7),
+        QPointF(x + wfar*0.8, y + hfar),
+        QPointF(x + wfar*0.2, y + hfar),
+        QPointF(x, y + hfar*0.7)
+    };
+    painter.drawPolygon(pointsfar, 6);
+
     //painter.save();
 
 }
